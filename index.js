@@ -1,13 +1,17 @@
-var process = require('process')
+const process = require('process');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 // Handle SIGINT
 process.on('SIGINT', () => {
-  console.info("SIGINT Received, exiting...")
+  console.info('SIGINT Received, exiting...')
   process.exit(0)
 })
 
 // Handle SIGTERM
 process.on('SIGTERM', () => {
-  console.info("SIGTERM Received, exiting...")
+  console.info('SIGTERM Received, exiting...')
   process.exit(0)
 })
 
@@ -46,7 +50,7 @@ class SnapdropServer {
     _onHeaders(headers, response) {
         if (response.headers.cookie && response.headers.cookie.indexOf('peerid=') > -1) return;
         response.peerId = Peer.uuid();
-        headers.push('Set-Cookie: peerid=' + response.peerId + "; SameSite=Strict; Secure");
+        headers.push('Set-Cookie: peerid=' + response.peerId + '; SameSite=Strict; Secure');
     }
 
     _onMessage(sender, message) {
